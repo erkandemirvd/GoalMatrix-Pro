@@ -14,7 +14,7 @@ jobs:
         with:
           python-version: '3.11'
       - run: pip install requests pandas
-      - run: python scripts/fetch_footballdata_gaps.py
+      - run: python .github/workflows/scripts/fetch_footballdata_gaps.py
       - run: |
           git config user.email "action@github.com"
           git config user.name "GitHub Action"
