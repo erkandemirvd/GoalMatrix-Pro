@@ -1,5 +1,11 @@
 name: Eksik Lig Verilerini Cek
 
+permissions:
+  contents: write
+
+on:
+  schedule:
+...
 on:
   schedule:
     - cron: '0 0 * * *'
