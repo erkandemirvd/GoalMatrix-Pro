@@ -1,0 +1,23 @@
+name: Eksik Lig Verilerini Cek
+
+on:
+  schedule:
+    - cron: '0 0 * * *'
+  workflow_dispatch:
+
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: pip install requests pandas
+      - run: python scripts/fetch_footballdata_gaps.py
+      - run: |
+          git config user.email "action@github.com"
+          git config user.name "GitHub Action"
+          git add gaps_output/merged_gaps.csv
+          git diff --cached --quiet || git commit -m "Veriler guncellendi"
+          git push
