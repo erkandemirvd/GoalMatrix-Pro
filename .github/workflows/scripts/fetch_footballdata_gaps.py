@@ -15,9 +15,9 @@ CANONICAL_COLS = [
 # SADECE 60 liginden football-data.co.uk'da olanlar
 # new/ = tek dosya (tum sezonlar), mmz4281/ = sezonluk
 FD_MAP = {
-    'usa': 'new/USA.csv',
-    'aut': 'new/AUT.csv',
-    'jap': 'new/JAP.csv',
+    'usa': 'mmz4281/{season}/USA.csv',   # new/ yerine sezonluk
+    'aut': 'mmz4281/{season}/AUT.csv',   # new/ yerine sezonluk
+    'jap': 'mmz4281/{season}/JPN.csv',   # new/ yerine sezonluk, kod JPN olabilir
     'chn': 'new/CHN.csv',
     'e0': 'mmz4281/{season}/E0.csv',
     'e1': 'mmz4281/{season}/E1.csv',
