@@ -108,7 +108,7 @@ def main():
         gaps = pd.DataFrame(columns=CANONICAL_COLS)
 
     gaps['date'] = pd.to_datetime(gaps['date'], errors='coerce', dayfirst=True)
-    gaps = gaps[CANONICAL_COLS].copy()
+    gaps = gaps.reindex(columns=CANONICAL_COLS).copy()
 
     keys = set()
     for _, r in gaps.iterrows():
