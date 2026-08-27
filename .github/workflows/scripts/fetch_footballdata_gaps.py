@@ -1,67 +1,178 @@
-import os, requests, pandas as pd
+import pandas as pd
+import requests
+import time
 from io import StringIO
+from pathlib import Path
 
-# 60 ligin kodları ve isimleri
-LIGLER = {
-    'E0': 'Ingiltere Premier', 'E1': 'Ingiltere Championship', 'E2': 'Ingiltere League 1',
-    'E3': 'Ingiltere League 2', 'EC': 'Ingiltere Conference', 'EFL Cup': 'Ingiltere Lig Kupasi',
-    'SC0': 'Iskocya Premiership', 'SC1': 'Iskocya Championship', 'SC2': 'Iskocya League 1',
-    'SC3': 'Iskocya League 2',
-    'D1': 'Almanya Bundesliga', 'D2': 'Almanya 2. Bundesliga',
-    'I1': 'Italya Serie A', 'I2': 'Italya Serie B',
-    'SP1': 'Ispanya LaLiga', 'SP2': 'Ispanya LaLiga2',
-    'F1': 'Fransa Ligue 1', 'F2': 'Fransa Ligue 2',
-    'N1': 'Hollanda Eredivisie', 'B1': 'Belcika Pro League',
-    'P1': 'Portekiz Primeira Liga', 'T1': 'Turkiye Super Lig',
-    'G1': 'Yunanistan Super League', 'ARG': 'Arjantin', 'AUT': 'Avusturya',
-    'CHN': 'Cin', 'JAP': 'Japonya', 'USA': 'ABD MLS',
-    'BRA': 'Brezilya Serie A', 'BRA2': 'Brezilya Serie B',
-    'BUL': 'Bulgaristan', 'CAM': 'Kamerun', 'CAN': 'Kanada',
-    'CHL': 'Sili', 'COL': 'Kolombiya', 'CRO': 'Hirvatistan',
-    'CZE': 'Cekya', 'DEN': 'Danimarka', 'ECU': 'Ekvador',
-    'FIN': 'Finlandiya', 'FIN2': 'Finlandiya Ykkonen', 'FIN3': 'Finlandiya Ykkosliiga',
-    'HUN': 'Macaristan', 'ICE': 'Izlanda', 'ICE2': 'Izlanda 1. Deild',
-    'LAT': 'Letonya', 'LIT': 'Litvanya', 'MEX': 'Meksika',
-    'NOR': 'Norvec', 'NOR2': 'Norvec 1. Division',
-    'POL': 'Polonya', 'IRL': 'Irlanda', 'IRL2': 'Irlanda 1. Division',
-    'ROM': 'Romanya', 'RUS': 'Rusya', 'SRB': 'Sirbistan',
-    'SWE': 'Isvec', 'SWE2': 'Isvec Superettan', 'SWE3': 'Isvec Svenska Cupen',
-    'SUI': 'Isvicre'
+CANONICAL_COLS = [
+    "league", "date", "home_team", "away_team", "home_goals", "away_goals",
+    "ht_home_goals", "ht_away_goals", "home_shots", "away_shots",
+    "home_target", "away_target", "home_fouls", "away_fouls",
+    "home_corners", "away_corners", "home_yellow", "away_yellow",
+    "home_red", "away_red", "home_xg", "away_xg", "source",
+]
+
+FD_MAP = {
+    'usa': 'new/USA.csv',
+    'aut': 'new/AUT.csv',
+    'jap': 'new/JAP.csv',
+    'chn': 'new/CHN.csv',
+    'e0': 'mmz4281/{season}/E0.csv',
+    'e1': 'mmz4281/{season}/E1.csv',
+    'e2': 'mmz4281/{season}/E2.csv',
+    'e3': 'mmz4281/{season}/E3.csv',
+    'ec': 'mmz4281/{season}/EC.csv',
+    'd1': 'mmz4281/{season}/D1.csv',
+    'd2': 'mmz4281/{season}/D2.csv',
+    'sp1': 'mmz4281/{season}/SP1.csv',
+    'sp2': 'mmz4281/{season}/SP2.csv',
+    'i1': 'mmz4281/{season}/I1.csv',
+    'i2': 'mmz4281/{season}/I2.csv',
+    'f1': 'mmz4281/{season}/F1.csv',
+    'f2': 'mmz4281/{season}/F2.csv',
+    'n1': 'mmz4281/{season}/N1.csv',
+    'p1': 'mmz4281/{season}/P1.csv',
+    'g1': 'mmz4281/{season}/G1.csv',
+    't1': 'mmz4281/{season}/T1.csv',
+    'b1': 'mmz4281/{season}/B1.csv',
+    'sc1': 'mmz4281/{season}/SC1.csv',
+    'sc2': 'mmz4281/{season}/SC2.csv',
+    'sc3': 'mmz4281/{season}/SC3.csv',
 }
 
-# 3 sezon çek: geçmiş boşlukları da doldur
-SEZONLAR = ['2425', '2526', '2627']
-ADRES = "https://www.football-data.co.uk/mmz4281/{s}/{l}.csv"
-CIKTI = "gaps_output/merged_gaps.csv"
+SEASONS = ['2526', '2627']
+BASE_URL = 'https://www.football-data.co.uk/'
 
-os.makedirs("gaps_output", exist_ok=True)
-tablolar = []
 
-for sezon in SEZONLAR:
-    for kod, isim in LIGLER.items():
-        url = ADRES.format(s=sezon, l=kod)
+def norm(t):
+    return str(t).strip().lower()
+
+
+def fetch(url):
+    for i in range(3):
         try:
-            yanit = requests.get(url, timeout=30)
-            if yanit.status_code == 200:
-                df = pd.read_csv(StringIO(yanit.text), low_memory=False)
-                df['lig'] = isim
-                df['sezon'] = f"20{sezon[:2]}-20{sezon[2:]}"
-                tablolar.append(df)
-                print(f"Tamam {isim} {sezon}")
-            else:
-                print(f"Atla {isim} {sezon} HTTP {yanit.status_code}")
-        except Exception as hata:
-            print(f"Hata {isim} {sezon}: {hata}")
+            r = requests.get(url, timeout=30)
+            if r.status_code == 429:
+                time.sleep(5)
+                continue
+            if r.status_code == 404:
+                return None
+            r.raise_for_status()
+            return r
+        except Exception:
+            time.sleep(2)
+    return None
 
-if tablolar:
-    birlesik = pd.concat(tablolar, ignore_index=True)
-    cevir = {'Date':'date','HomeTeam':'home_team','AwayTeam':'away_team',
-             'FTHG':'home_goals','FTAG':'away_goals','HTHG':'ht_home_goals','HTAG':'ht_away_goals',
-             'HS':'home_shots','AS':'away_shots','HST':'home_target','AST':'away_target',
-             'HF':'home_fouls','AF':'away_fouls','HC':'home_corners','AC':'away_corners',
-             'HY':'home_yellow','AY':'away_yellow','HR':'home_red','AR':'away_red'}
-    birlesik = birlesik.rename(columns={k:v for k,v in cevir.items() if k in birlesik.columns})
-    birlesik.to_csv(CIKTI, index=False, encoding='utf-8-sig')
-    print(f"\nKaydedildi: {len(birlesik)} mac")
-else:
-    print("Veri yok!")
+
+def proc(df, code):
+    mp = {
+        'Date': 'date', 'HomeTeam': 'home_team', 'AwayTeam': 'away_team',
+        'FTHG': 'home_goals', 'FTAG': 'away_goals',
+        'HTHG': 'ht_home_goals', 'HTAG': 'ht_away_goals',
+        'HS': 'home_shots', 'AS': 'away_shots',
+        'HST': 'home_target', 'AST': 'away_target',
+        'HF': 'home_fouls', 'AF': 'away_fouls',
+        'HC': 'home_corners', 'AC': 'away_corners',
+        'HY': 'home_yellow', 'AY': 'away_yellow',
+        'HR': 'home_red', 'AR': 'away_red',
+    }
+    for o, n in mp.items():
+        if o in df.columns:
+            df[n] = df[o]
+    df['league'] = code
+    df['source'] = 'football-data.co.uk'
+    df['date'] = pd.to_datetime(df['date'], errors='coerce', dayfirst=True)
+    for c in CANONICAL_COLS:
+        if c not in df.columns:
+            df[c] = pd.NA
+    return df[CANONICAL_COLS].copy()
+
+
+def main():
+    try:
+        master = pd.read_csv('merged_2024_2025_2026_v3.csv', encoding='utf-8-sig', low_memory=False)
+        leagues_60 = set(master['league'].dropna().astype(str).str.strip().str.lower().unique())
+    except Exception:
+        leagues_60 = set(FD_MAP.keys())
+
+    p = Path('gaps_output/merged_gaps.csv')
+    p.parent.mkdir(exist_ok=True)
+
+    if p.exists():
+        gaps = pd.read_csv(p, encoding='utf-8-sig', low_memory=False)
+    else:
+        gaps = pd.DataFrame(columns=CANONICAL_COLS)
+
+    gaps['date'] = pd.to_datetime(gaps['date'], errors='coerce', dayfirst=True)
+    gaps = gaps[CANONICAL_COLS].copy()
+
+    keys = set()
+    for _, r in gaps.iterrows():
+        if pd.notna(r['date']):
+            keys.add((r['date'].strftime('%Y-%m-%d'), norm(r['home_team']), norm(r['away_team'])))
+
+    total = 0
+
+    for lig_code, path_template in FD_MAP.items():
+        if lig_code not in leagues_60:
+            continue
+
+        if '{season}' in path_template:
+            for season in SEASONS:
+                url = BASE_URL + path_template.format(season=season)
+                print(f'[{lig_code}-{season}] cekiliyor...')
+                resp = fetch(url)
+                if resp is None:
+                    print('  404/hata')
+                    continue
+                try:
+                    df = proc(pd.read_csv(StringIO(resp.text), encoding='utf-8-sig', low_memory=False), lig_code)
+                    nr = []
+                    for _, r in df.iterrows():
+                        if pd.isna(r['date']):
+                            continue
+                        k = (r['date'].strftime('%Y-%m-%d'), norm(r['home_team']), norm(r['away_team']))
+                        if k not in keys:
+                            nr.append(r.to_dict())
+                            keys.add(k)
+                    if nr:
+                        gaps = pd.concat([gaps, pd.DataFrame(nr)], ignore_index=True)
+                        total += len(nr)
+                        print(f'  +{len(nr)}')
+                    else:
+                        print('  0')
+                except Exception as e:
+                    print(f'  HATA: {e}')
+        else:
+            url = BASE_URL + path_template
+            print(f'[{lig_code}] cekiliyor...')
+            resp = fetch(url)
+            if resp is None:
+                print('  404/hata')
+                continue
+            try:
+                df = proc(pd.read_csv(StringIO(resp.text), encoding='utf-8-sig', low_memory=False), lig_code)
+                nr = []
+                for _, r in df.iterrows():
+                    if pd.isna(r['date']):
+                        continue
+                    k = (r['date'].strftime('%Y-%m-%d'), norm(r['home_team']), norm(r['away_team']))
+                    if k not in keys:
+                        nr.append(r.to_dict())
+                        keys.add(k)
+                if nr:
+                    gaps = pd.concat([gaps, pd.DataFrame(nr)], ignore_index=True)
+                    total += len(nr)
+                    print(f'  +{len(nr)}')
+                else:
+                    print('  0')
+            except Exception as e:
+                print(f'  HATA: {e}')
+
+    gaps = gaps.sort_values('date').reset_index(drop=True)
+    gaps.to_csv(p, index=False, encoding='utf-8-sig')
+    print(f'\nTAMAM. Yeni: {total}, Toplam: {len(gaps)}')
+
+
+if __name__ == '__main__':
+    main()
