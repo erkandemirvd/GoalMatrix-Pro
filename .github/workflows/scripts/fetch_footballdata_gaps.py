@@ -12,6 +12,8 @@ CANONICAL_COLS = [
     "home_red", "away_red", "home_xg", "away_xg", "source",
 ]
 
+# SADECE 60 liginden football-data.co.uk'da olanlar
+# new/ = tek dosya (tum sezonlar), mmz4281/ = sezonluk
 FD_MAP = {
     'usa': 'new/USA.csv',
     'aut': 'new/AUT.csv',
@@ -35,6 +37,7 @@ FD_MAP = {
     'g1': 'mmz4281/{season}/G1.csv',
     't1': 'mmz4281/{season}/T1.csv',
     'b1': 'mmz4281/{season}/B1.csv',
+    'sc0': 'mmz4281/{season}/SC0.csv',
     'sc1': 'mmz4281/{season}/SC1.csv',
     'sc2': 'mmz4281/{season}/SC2.csv',
     'sc3': 'mmz4281/{season}/SC3.csv',
@@ -89,6 +92,7 @@ def proc(df, code):
 
 
 def main():
+    # 60 lig listesini master CSV'den oku
     try:
         master = pd.read_csv('merged_2024_2025_2026_v3.csv', encoding='utf-8-sig', low_memory=False)
         leagues_60 = set(master['league'].dropna().astype(str).str.strip().str.lower().unique())
