@@ -14,10 +14,14 @@ CANONICAL_COLS = [
 
 # SADECE 60 liginden football-data.co.uk'da olanlar
 # new/ = tek dosya (tum sezonlar), mmz4281/ = sezonluk
+# DUZELTME (2026-09): usa/aut/jap icin football-data.co.uk SEZON BAZLI dosya
+# YAYINLAMIYOR - sadece tek konsolide 'new/' dosyasi var. mmz4281/ formati bu
+# 3 lig icin her calistirmada sessizce 404 donduruyordu (workflow yesil gorunuyordu
+# ama hicbir veri cekilmiyordu) - bu yuzden 21 aydir guncellenmemislerdi.
 FD_MAP = {
-    'usa': 'mmz4281/{season}/USA.csv',   # new/ yerine sezonluk
-    'aut': 'mmz4281/{season}/AUT.csv',   # new/ yerine sezonluk
-    'jap': 'mmz4281/{season}/JPN.csv',   # new/ yerine sezonluk, kod JPN olabilir
+    'usa': 'new/USA.csv',
+    'aut': 'new/AUT.csv',
+    'jap': 'new/JPN.csv',
     'chn': 'new/CHN.csv',
     'e0': 'mmz4281/{season}/E0.csv',
     'e1': 'mmz4281/{season}/E1.csv',
