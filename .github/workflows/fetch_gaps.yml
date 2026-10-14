@@ -19,11 +19,6 @@ jobs:
       - run: pip install requests pandas numpy
       - name: football-data.co.uk (38 lig)
         run: python .github/workflows/scripts/fetch_footballdata_gaps.py
-      - name: API-Football (football-data'da olmayan 20 lig)
-        if: always()
-        env:
-          API_FOOTBALL_KEY: ${{ secrets.API_FOOTBALL_KEY }}
-        run: python .github/workflows/scripts/fetch_apifootball.py
       - name: Tam sezon + oran verisi
         if: always()
         continue-on-error: true
