@@ -1,21 +1,5 @@
-# fetch_footballdata_gaps.py  (DUZELTILMIS SURUM)
+# fetch_footballdata_gaps.py  (TAM SURUM - temizlik dahil)
 # Yer: .github/workflows/scripts/fetch_footballdata_gaps.py
-#
-# football-data.co.uk'tan biten maclari ceker, ana CSV'deki yazimla (lig + takim adi)
-# eslestirir, gaps_output/merged_gaps.csv dosyasina ekler.
-#
-# ESKI SURUMDEN FARKLAR
-#  1) TARIH HATASI: eski script gaps CSV'yi ISO tarihle (2026-03-06) yazip sonra
-#     dayfirst=True ile geri okuyordu -> gun/ay yer degistiriyordu (2026-06-03),
-#     gunu 12'den buyuk olanlar bos (NaT) oluyordu. Artik tarih her yerde sabit format.
-#  2) RUS/IRL/NOR/SWE/POL/ROU/BRA/MEX/DNK/FIN/SWZ/ARG de cekilir ve ana CSV'deki
-#     uzun lig adina (mexico-liga-mx ...) cevrilir. Eskiden ayri "lig" gibi kaliyordu.
-#  3) Takim adlari ana CSV'deki yazima cevrilir. Eslesmeyenler
-#     gaps_output/eslesmeyen_takimlar.csv dosyasina yazilir (sessizce yeni takim acilmaz).
-#  4) 404/hata sessizce gecilmez: ozet basilir, hata varsa cikis kodu 1.
-#  5) Ayni mac +-1 gun kaymayla, ters ev/dep ile veya ayni takim ayni gun iki macla
-#     tekrar eklenmez.
-#  6) Negatif / sahte sifir istatistikler bos birakilir.
 import re
 import sys
 import time
@@ -89,6 +73,11 @@ ALIAS = {
     "Athletico-PR": "Atlético PR", "Botafogo RJ": "Botafogo", "Flamengo RJ": "Flamengo",
     "Vasco": "Vasco da Gama", "Bodo/Glimt": "FK Bodo - Glimt", "KFUM Oslo": "KFUM",
     "St. Patricks": "St Patrick's Athl.",
+    "Aalborg": "AaB", "Aarhus": "AGF", "Odense": "OB", "Ekenas": "EIF",
+    "Rakow": "Raków Częstochowa", "Termalica B-B.": "Nieciecza", "Wisla": "Wisla Krakow",
+    "Bray": "Bray Wanderers", "Din. Bucuresti": "Dinamo Bucureşti",
+    "Farul Constanta": "SSC Farul", "U. Cluj": "Universitatea Cluj",
+    "Lokomotiv Moscow": "Lokomotiv Moskva", "Pari NN": "Olimpiyets",
 }
 
 
@@ -234,6 +223,21 @@ def main():
     else:
         gaps = pd.DataFrame(columns=CANONICAL_COLS)
         gaps["date"] = pd.to_datetime(gaps["date"])
+
+    # Temizlik: bos satirlar, yazim farki, ana dosya ile cakisma (tekrar calistirilinca zarar vermez)
+    if master is not None and len(gaps):
+        n0 = len(gaps)
+        gaps = gaps.dropna(subset=["home_team", "away_team", "home_goals", "away_goals"]).copy()
+        gaps["home_team"] = [canon(l, t) for l, t in zip(gaps.league, gaps.home_team)]
+        gaps["away_team"] = [canon(l, t) for l, t in zip(gaps.league, gaps.away_team)]
+        mpair = {}
+        for l, d, h, a in zip(master.league, master.date, master.home_team, master.away_team):
+            mpair.setdefault((l, h, a), []).append(d)
+        dup = [any(abs((x - d).days) <= 1 for x in mpair.get((l, h, a), []))
+               for l, d, h, a in zip(gaps.league, gaps.date, gaps.home_team, gaps.away_team)]
+        gaps = gaps[~np.array(dup, dtype=bool)]
+        gaps = gaps.drop_duplicates(["league", "date", "home_team", "away_team"])
+        print(f"Temizlik: gaps {n0} -> {len(gaps)}")
 
     existing = pd.concat([x[["league", "date", "home_team", "away_team"]]
                           for x in (master, gaps) if x is not None and len(x)], ignore_index=True)
