@@ -61,19 +61,37 @@ STAT_NAMES = {  # ESPN istatistik adi (kucuk harf) -> bizim sutun
 }
 
 
+LOG = []
+
+
+def say(msg):
+    print(msg)
+    LOG.append(str(msg))
+
+
+HOSTS = ["https://site.api.espn.com/apis/site/v2/sports/soccer",
+         "https://site.web.api.espn.com/apis/site/v2/sports/soccer"]
+
+
 def get_json(url, params=None):
-    for i in range(3):
-        try:
-            r = requests.get(url, params=params, headers=UA, timeout=30)
-            if r.status_code in (400, 404):
-                return None
-            if r.status_code == 429:
-                time.sleep(15 * (i + 1))
-                continue
-            r.raise_for_status()
-            return r.json()
-        except Exception as e:  # noqa
-            time.sleep(3)
+    urls = [url] + [url.replace(BASE, h) for h in HOSTS if h != BASE]
+    for u in urls:
+        for i in range(2):
+            try:
+                r = requests.get(u, params=params, headers=UA, timeout=20)
+                if r.status_code in (400, 404):
+                    if len(LOG) < 60:
+                        say(f"  HTTP {r.status_code} {u.split('/soccer/')[1]} {params}")
+                    break
+                if r.status_code == 429:
+                    time.sleep(10 * (i + 1))
+                    continue
+                r.raise_for_status()
+                return r.json()
+            except Exception as e:  # noqa
+                if len(LOG) < 60:
+                    say(f"  HATA {u.split('/soccer/')[1]}: {type(e).__name__} {str(e)[:150]}")
+                time.sleep(2)
     return None
 
 
@@ -175,11 +193,11 @@ def main():
                 break
         if evs is None:
             skipped.append(slug)
-            print(f"[{slug}] ATLANDI: ESPN'de bulunamadi ({', '.join(cands)})")
+            say(f"[{slug}] ATLANDI: ESPN'de bulunamadi ({', '.join(cands)})")
             continue
         if not any(h in (lname or "").lower() for h in hints):
             skipped.append(slug)
-            print(f"[{slug}] ATLANDI: ESPN lig adi beklenenle uyusmuyor -> '{lname}' ({espn_slug})")
+            say(f"[{slug}] ATLANDI: ESPN lig adi beklenenle uyusmuyor -> '{lname}' ({espn_slug})")
             continue
         n = 0
         n_unm = 0
@@ -259,6 +277,7 @@ def main():
           f"istatistigi alinan: {n_stat}, bekleyen: {waiting}, eslesmeyen takim: {len(canon.unmapped)}")
     if skipped:
         print("ATLANAN LIGLER:", ", ".join(skipped))
+    (fd.OUT / "espn_log.txt").write_text("\n".join(LOG), encoding="utf-8")
     if not found:
         print("::error::Hic lig bulunamadi (ESPN erisimi veya adres degismis olabilir)")
         sys.exit(1)
