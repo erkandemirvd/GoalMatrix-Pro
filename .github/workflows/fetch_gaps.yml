@@ -19,8 +19,13 @@ jobs:
       - run: pip install requests pandas numpy
       - name: football-data.co.uk (38 lig)
         run: python .github/workflows/scripts/fetch_footballdata_gaps.py
+      - name: ESPN (eski kalan ligler)
+        if: always()
+        continue-on-error: true
+        run: python .github/workflows/scripts/fetch_espn_gaps.py
       - name: Tam sezon + oran verisi
         if: always()
+        continue-on-error: true
         run: python .github/workflows/fd_tam_cek.py
       - name: Commit ve push
         if: always()
