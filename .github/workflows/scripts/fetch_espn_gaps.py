@@ -25,6 +25,11 @@ import fetch_footballdata_gaps as fd  # noqa: E402  (norm, Canon, load_keys, sab
 BASE = "https://site.api.espn.com/apis/site/v2/sports/soccer"
 STATE = fd.OUT / "espn_state.json"
 MAX_STATS = 400
+fd.ALIAS.update({
+    "Alianza FC": "Alianza Valledupar",
+    "Águilas Doradas": "Rionegro Águilas",
+    "Liga de Quito": "LDU Quito",
+})
 UA = {"User-Agent": "Mozilla/5.0 (GoalMatrixESPN/1.0)"}
 
 # ana CSV lig adi -> (ESPN lig kodu adaylari, beklenen ad ipuclari, saat dilimi)
