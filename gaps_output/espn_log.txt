@@ -1,4 +1,3 @@
-tum ligler yazildi: 1
   HTTP 400 cze.1/scoreboard {'dates': '20260518-20261015'}
   HTTP 400 cze.1/scoreboard {'dates': '20260518-20261015'}
   HTTP 400 cro.1/scoreboard {'dates': '20260518-20261015'}
