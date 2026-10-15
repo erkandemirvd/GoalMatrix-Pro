@@ -36,23 +36,11 @@ UA = {"User-Agent": "Mozilla/5.0 (GoalMatrixESPN/1.0)"}
 # ESPN'den donen lig adi ipuclarindan birini icermiyorsa lig atlanir.
 TARGETS = {
     "czech-republic-first-league": (["cze.1"], ["czech", "gambrinus", "fortuna"], "Europe/Prague"),
-    "croatia-prva-hnl": (["cro.1"], ["croatian", "hnl"], "Europe/Zagreb"),
-    "serbia-superliga": (["srb.1"], ["serbian", "super liga", "superliga"], "Europe/Belgrade"),
     "chile-primera-division": (["chi.1"], ["chilean", "primera"], "America/Santiago"),
     "colombia-categoria-primera-a": (["col.1"], ["colombian", "primera a", "betplay"], "America/Bogota"),
-    "lithuania-a-lyga": (["ltu.1"], ["lithuanian", "a lyga"], "Europe/Vilnius"),
-    "cameroon-elite-one": (["cmr.1"], ["cameroon", "elite"], "Africa/Douala"),
-    "iceland-urvalsdeild": (["isl.1"], ["besta", "urvals", "icelandic"], "Atlantic/Reykjavik"),
-    "iceland-1-deild": (["isl.2"], ["lengju", "1. deild", "first division", "division 1"], "Atlantic/Reykjavik"),
     "finland-ykkosliiga": (["fin.2"], ["ykk", "1. division"], "Europe/Helsinki"),
-    "finland-ykkonen": (["fin.3"], ["ykk"], "Europe/Helsinki"),
     "norway-first-division": (["nor.2"], ["obos", "1. div", "first div", "division 1"], "Europe/Oslo"),
-    "republic-of-ireland-first-divis": (["irl.2"], ["first division"], "Europe/Dublin"),
-    "bulgaria-first-league": (["bul.1"], ["bulgarian", "parva", "first"], "Europe/Sofia"),
-    "hungary-nb-i": (["hun.1"], ["hungarian", "nb i"], "Europe/Budapest"),
-    "latvia-virsliga": (["lva.1", "lat.1"], ["latvian", "virsliga"], "Europe/Riga"),
     "ecuador-primera-categoria-serie": (["ecu.1"], ["ecuador", "liga pro", "serie a"], "America/Guayaquil"),
-    "canada-canadian-premier-league": (["can.1"], ["canadian premier"], "America/Toronto"),
     "brazil-serie-b": (["bra.2"], ["serie b"], "America/Sao_Paulo"),
     "sweden-superettan": (["swe.2"], ["superettan"], "Europe/Stockholm"),
 }
@@ -87,7 +75,7 @@ def get_json(url, params=None):
                 if r.status_code in (400, 404):
                     if len(LOG) < 60:
                         say(f"  HTTP {r.status_code} {u.split('/soccer/')[1]} {params}")
-                    break
+                    return None
                 if r.status_code == 429:
                     time.sleep(10 * (i + 1))
                     continue
