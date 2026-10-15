@@ -1,8 +1,6 @@
-lig listesi HTTP 200
-lig listesi yazildi: 219 lig
+tum ligler yazildi: 1
   HTTP 400 cze.1/scoreboard {'dates': '20260518-20261015'}
   HTTP 400 cze.1/scoreboard {'dates': '20260518-20261015'}
-[czech-republic-first-league] ATLANDI: ESPN lig adi beklenenle uyusmuyor -> 'Gambrinus Liga' (cze.1)
   HTTP 400 cro.1/scoreboard {'dates': '20260518-20261015'}
   HTTP 400 cro.1/scoreboard {'dates': '20260518-20261015'}
   HTTP 400 cro.1/scoreboard {'dates': '20260518'}
@@ -58,8 +56,9 @@ lig listesi yazildi: 219 lig
   HTTP 400 isl.2/scoreboard {'dates': '20260518'}
   HTTP 400 isl.2/scoreboard {'dates': '20260519'}
   HTTP 400 isl.2/scoreboard {'dates': '20260519'}
+  HTTP 400 isl.2/scoreboard {'dates': '20260520'}
+  HTTP 400 isl.2/scoreboard {'dates': '20260520'}
 [iceland-1-deild] ATLANDI: ESPN'de bulunamadi (isl.2)
-[finland-ykkosliiga] ATLANDI: ESPN lig adi beklenenle uyusmuyor -> 'Finnish 1. Division' (fin.2)
 [finland-ykkonen] ATLANDI: ESPN'de bulunamadi (fin.3)
 [republic-of-ireland-first-divis] ATLANDI: ESPN'de bulunamadi (irl.2)
 [bulgaria-first-league] ATLANDI: ESPN'de bulunamadi (bul.1)
