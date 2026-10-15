@@ -15,6 +15,9 @@ jobs:
       - run: pip install requests pandas numpy
       - name: ESPN
         run: python .github/workflows/scripts/fetch_espn_gaps.py
+      - name: Sofascore
+        if: always()
+        run: python .github/workflows/scripts/fetch_sofascore_gaps.py
       - name: Commit ve push
         if: always()
         run: |
