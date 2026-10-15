@@ -30,7 +30,7 @@ UA = {"User-Agent": "Mozilla/5.0 (GoalMatrixESPN/1.0)"}
 # ana CSV lig adi -> (ESPN lig kodu adaylari, beklenen ad ipuclari, saat dilimi)
 # ESPN'den donen lig adi ipuclarindan birini icermiyorsa lig atlanir.
 TARGETS = {
-    "czech-republic-first-league": (["cze.1"], ["czech"], "Europe/Prague"),
+    "czech-republic-first-league": (["cze.1"], ["czech", "gambrinus", "fortuna"], "Europe/Prague"),
     "croatia-prva-hnl": (["cro.1"], ["croatian", "hnl"], "Europe/Zagreb"),
     "serbia-superliga": (["srb.1"], ["serbian", "super liga", "superliga"], "Europe/Belgrade"),
     "chile-primera-division": (["chi.1"], ["chilean", "primera"], "America/Santiago"),
@@ -39,7 +39,7 @@ TARGETS = {
     "cameroon-elite-one": (["cmr.1"], ["cameroon", "elite"], "Africa/Douala"),
     "iceland-urvalsdeild": (["isl.1"], ["besta", "urvals", "icelandic"], "Atlantic/Reykjavik"),
     "iceland-1-deild": (["isl.2"], ["lengju", "1. deild", "first division", "division 1"], "Atlantic/Reykjavik"),
-    "finland-ykkosliiga": (["fin.2"], ["ykk"], "Europe/Helsinki"),
+    "finland-ykkosliiga": (["fin.2"], ["ykk", "1. division"], "Europe/Helsinki"),
     "finland-ykkonen": (["fin.3"], ["ykk"], "Europe/Helsinki"),
     "norway-first-division": (["nor.2"], ["obos", "1. div", "first div", "division 1"], "Europe/Oslo"),
     "republic-of-ireland-first-divis": (["irl.2"], ["first division"], "Europe/Dublin"),
@@ -141,6 +141,32 @@ def scoreboard(slug, start, end):
     return out, league_name
 
 
+def tum_ligler():
+    """Gecmis gunlerde maci olan TUM ESPN futbol ligleri -> gaps_output/espn_ligler_tum.txt."""
+    f = fd.OUT / "espn_ligler_tum.txt"
+    if f.exists():
+        return
+    found = {}
+    today = datetime.utcnow()
+    for k in range(0, 120, 3):
+        d = today - timedelta(days=k)
+        for sl in ("all", "eng.1"):
+            try:
+                r = requests.get(f"{BASE}/{sl}/scoreboard", params={"dates": f"{d:%Y%m%d}"},
+                                 headers=UA, timeout=20)
+                if r.status_code != 200:
+                    continue
+                for lg in r.json().get("leagues", []):
+                    found[lg.get("slug", "?")] = lg.get("name", "?")
+                if sl == "all":
+                    break
+            except Exception:  # noqa
+                continue
+        time.sleep(0.2)
+    f.write_text("\n".join(f"{a}\t{b}" for a, b in sorted(found.items())), encoding="utf-8")
+    say(f"tum ligler yazildi: {len(found)}")
+
+
 def lig_listesi():
     """ESPN'deki gercek futbol lig kodlari -> gaps_output/espn_ligler.txt (bir kez)."""
     f = fd.OUT / "espn_ligler.txt"
@@ -213,6 +239,7 @@ def stat_values(summary, home_id):
 def main():
     fd.OUT.mkdir(exist_ok=True)
     lig_listesi()
+    tum_ligler()
     master = pd.read_csv(fd.MASTER, encoding="utf-8-sig", low_memory=False)
     master["date"] = pd.to_datetime(master["date"], format="%Y-%m-%d", errors="coerce")
     master = master.dropna(subset=["date"])
