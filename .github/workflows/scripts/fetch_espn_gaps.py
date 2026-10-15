@@ -95,26 +95,77 @@ def get_json(url, params=None):
     return None
 
 
+def _day_list(d, e):
+    out = []
+    while d <= e:
+        out.append(d)
+        d += timedelta(days=1)
+    return out
+
+
 def scoreboard(slug, start, end):
-    """[start, end] araligindaki biten maclar (uzun araliklar 60 gunluk parcalanir)."""
+    """[start, end] araligindaki biten maclar. Once aralik, olmazsa 14 gun, olmazsa gun gun."""
     out, seen = [], set()
-    d = start
     league_name = None
-    while d <= end:
-        e = min(d + timedelta(days=59), end)
-        j = get_json(f"{BASE}/{slug}/scoreboard",
-                     {"dates": f"{d:%Y%m%d}-{e:%Y%m%d}", "limit": 1000})
-        if j is None:
-            return None, league_name
+    url = f"{BASE}/{slug}/scoreboard"
+
+    def add(j):
+        nonlocal league_name
         lg = (j.get("leagues") or [{}])[0]
         league_name = lg.get("name") or league_name
         for ev in j.get("events", []):
             if ev["id"] not in seen:
                 seen.add(ev["id"])
                 out.append(ev)
-        d = e + timedelta(days=1)
-        time.sleep(0.3)
+
+    # 1) tek istek: aralik, limit'siz
+    j = get_json(url, {"dates": f"{start:%Y%m%d}-{end:%Y%m%d}"})
+    if j is not None:
+        add(j)
+        if out:
+            return out, league_name
+    # 2) tek gunluk istekler (en saglam bicim). Lig hic yanit vermezse hemen vazgec.
+    days = _day_list(start, end)
+    ok = 0
+    for k, d in enumerate(days):
+        j = get_json(url, {"dates": f"{d:%Y%m%d}"})
+        if j is None:
+            if k == 2 and ok == 0:
+                return None, league_name
+            continue
+        ok += 1
+        add(j)
+        time.sleep(0.15)
+    if ok == 0:
+        return None, league_name
     return out, league_name
+
+
+def lig_listesi():
+    """ESPN'deki gercek futbol lig kodlari -> gaps_output/espn_ligler.txt (bir kez)."""
+    f = fd.OUT / "espn_ligler.txt"
+    if f.exists():
+        return
+    try:
+        r = requests.get("https://sports.core.api.espn.com/v2/sports/soccer/leagues",
+                         params={"limit": 1000}, headers=UA, timeout=30)
+        say(f"lig listesi HTTP {r.status_code}")
+        items = r.json().get("items", [])
+    except Exception as e:  # noqa
+        say(f"lig listesi HATA {type(e).__name__} {str(e)[:100]}")
+        return
+    rows = []
+    for it in items:
+        ref = it.get("$ref", "")
+        slug = ref.split("/leagues/")[-1].split("?")[0]
+        try:
+            j = requests.get(ref.replace("http://", "https://"), headers=UA, timeout=10).json()
+            rows.append(f"{slug}\t{j.get('name', '')}")
+        except Exception:  # noqa
+            rows.append(f"{slug}\t?")
+        time.sleep(0.05)
+    f.write_text("\n".join(rows), encoding="utf-8")
+    say(f"lig listesi yazildi: {len(rows)} lig")
 
 
 def parse_event(ev, tz):
@@ -161,6 +212,7 @@ def stat_values(summary, home_id):
 
 def main():
     fd.OUT.mkdir(exist_ok=True)
+    lig_listesi()
     master = pd.read_csv(fd.MASTER, encoding="utf-8-sig", low_memory=False)
     master["date"] = pd.to_datetime(master["date"], format="%Y-%m-%d", errors="coerce")
     master = master.dropna(subset=["date"])
