@@ -1,0 +1,2 @@
+  HTTP 403 /sport/football/scheduled-events/2026-06-26
+TAMAM. Sofascore: gun=0, yeni mac=0, istatistik=0, ligler={}

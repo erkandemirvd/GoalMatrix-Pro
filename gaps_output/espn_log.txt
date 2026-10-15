@@ -1,66 +1,8 @@
   HTTP 400 cze.1/scoreboard {'dates': '20260518-20261015'}
-  HTTP 400 cze.1/scoreboard {'dates': '20260518-20261015'}
-  HTTP 400 cro.1/scoreboard {'dates': '20260518-20261015'}
-  HTTP 400 cro.1/scoreboard {'dates': '20260518-20261015'}
-  HTTP 400 cro.1/scoreboard {'dates': '20260518'}
-  HTTP 400 cro.1/scoreboard {'dates': '20260518'}
-  HTTP 400 cro.1/scoreboard {'dates': '20260519'}
-  HTTP 400 cro.1/scoreboard {'dates': '20260519'}
-  HTTP 400 cro.1/scoreboard {'dates': '20260520'}
-  HTTP 400 cro.1/scoreboard {'dates': '20260520'}
-[croatia-prva-hnl] ATLANDI: ESPN'de bulunamadi (cro.1)
-  HTTP 400 srb.1/scoreboard {'dates': '20260518-20261015'}
-  HTTP 400 srb.1/scoreboard {'dates': '20260518-20261015'}
-  HTTP 400 srb.1/scoreboard {'dates': '20260518'}
-  HTTP 400 srb.1/scoreboard {'dates': '20260518'}
-  HTTP 400 srb.1/scoreboard {'dates': '20260519'}
-  HTTP 400 srb.1/scoreboard {'dates': '20260519'}
-  HTTP 400 srb.1/scoreboard {'dates': '20260520'}
-  HTTP 400 srb.1/scoreboard {'dates': '20260520'}
-[serbia-superliga] ATLANDI: ESPN'de bulunamadi (srb.1)
-  HTTP 400 chi.1/scoreboard {'dates': '20260518-20261015'}
   HTTP 400 chi.1/scoreboard {'dates': '20260518-20261015'}
   HTTP 400 col.1/scoreboard {'dates': '20260518-20261015'}
-  HTTP 400 col.1/scoreboard {'dates': '20260518-20261015'}
-  HTTP 400 ltu.1/scoreboard {'dates': '20260518-20261015'}
-  HTTP 400 ltu.1/scoreboard {'dates': '20260518-20261015'}
-  HTTP 400 ltu.1/scoreboard {'dates': '20260518'}
-  HTTP 400 ltu.1/scoreboard {'dates': '20260518'}
-  HTTP 400 ltu.1/scoreboard {'dates': '20260519'}
-  HTTP 400 ltu.1/scoreboard {'dates': '20260519'}
-  HTTP 400 ltu.1/scoreboard {'dates': '20260520'}
-  HTTP 400 ltu.1/scoreboard {'dates': '20260520'}
-[lithuania-a-lyga] ATLANDI: ESPN'de bulunamadi (ltu.1)
-  HTTP 400 cmr.1/scoreboard {'dates': '20260518-20261015'}
-  HTTP 400 cmr.1/scoreboard {'dates': '20260518-20261015'}
-  HTTP 400 cmr.1/scoreboard {'dates': '20260518'}
-  HTTP 400 cmr.1/scoreboard {'dates': '20260518'}
-  HTTP 400 cmr.1/scoreboard {'dates': '20260519'}
-  HTTP 400 cmr.1/scoreboard {'dates': '20260519'}
-  HTTP 400 cmr.1/scoreboard {'dates': '20260520'}
-  HTTP 400 cmr.1/scoreboard {'dates': '20260520'}
-[cameroon-elite-one] ATLANDI: ESPN'de bulunamadi (cmr.1)
-  HTTP 400 isl.1/scoreboard {'dates': '20260518-20261015'}
-  HTTP 400 isl.1/scoreboard {'dates': '20260518-20261015'}
-  HTTP 400 isl.1/scoreboard {'dates': '20260518'}
-  HTTP 400 isl.1/scoreboard {'dates': '20260518'}
-  HTTP 400 isl.1/scoreboard {'dates': '20260519'}
-  HTTP 400 isl.1/scoreboard {'dates': '20260519'}
-  HTTP 400 isl.1/scoreboard {'dates': '20260520'}
-  HTTP 400 isl.1/scoreboard {'dates': '20260520'}
-[iceland-urvalsdeild] ATLANDI: ESPN'de bulunamadi (isl.1)
-  HTTP 400 isl.2/scoreboard {'dates': '20260518-20261015'}
-  HTTP 400 isl.2/scoreboard {'dates': '20260518-20261015'}
-  HTTP 400 isl.2/scoreboard {'dates': '20260518'}
-  HTTP 400 isl.2/scoreboard {'dates': '20260518'}
-  HTTP 400 isl.2/scoreboard {'dates': '20260519'}
-  HTTP 400 isl.2/scoreboard {'dates': '20260519'}
-  HTTP 400 isl.2/scoreboard {'dates': '20260520'}
-  HTTP 400 isl.2/scoreboard {'dates': '20260520'}
-[iceland-1-deild] ATLANDI: ESPN'de bulunamadi (isl.2)
-[finland-ykkonen] ATLANDI: ESPN'de bulunamadi (fin.3)
-[republic-of-ireland-first-divis] ATLANDI: ESPN'de bulunamadi (irl.2)
-[bulgaria-first-league] ATLANDI: ESPN'de bulunamadi (bul.1)
-[hungary-nb-i] ATLANDI: ESPN'de bulunamadi (hun.1)
-[latvia-virsliga] ATLANDI: ESPN'de bulunamadi (lva.1, lat.1)
-[canada-canadian-premier-league] ATLANDI: ESPN'de bulunamadi (can.1)
+  HTTP 400 fin.2/scoreboard {'dates': '20260518-20261015'}
+  HTTP 400 nor.2/scoreboard {'dates': '20260518-20261015'}
+  HTTP 400 ecu.1/scoreboard {'dates': '20260518-20261015'}
+  HTTP 400 bra.2/scoreboard {'dates': '20260518-20261015'}
+  HTTP 400 swe.2/scoreboard {'dates': '20260518-20261015'}
