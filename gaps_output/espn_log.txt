@@ -1,0 +1,61 @@
+  HTTP 400 cze.1/scoreboard {'dates': '20260518-20260716', 'limit': 1000}
+  HTTP 400 cze.1/scoreboard {'dates': '20260518-20260716', 'limit': 1000}
+[czech-republic-first-league] ATLANDI: ESPN'de bulunamadi (cze.1)
+  HTTP 400 cro.1/scoreboard {'dates': '20260518-20260716', 'limit': 1000}
+  HTTP 400 cro.1/scoreboard {'dates': '20260518-20260716', 'limit': 1000}
+[croatia-prva-hnl] ATLANDI: ESPN'de bulunamadi (cro.1)
+  HTTP 400 srb.1/scoreboard {'dates': '20260518-20260716', 'limit': 1000}
+  HTTP 400 srb.1/scoreboard {'dates': '20260518-20260716', 'limit': 1000}
+[serbia-superliga] ATLANDI: ESPN'de bulunamadi (srb.1)
+  HTTP 400 chi.1/scoreboard {'dates': '20260518-20260716', 'limit': 1000}
+  HTTP 400 chi.1/scoreboard {'dates': '20260518-20260716', 'limit': 1000}
+[chile-primera-division] ATLANDI: ESPN'de bulunamadi (chi.1)
+  HTTP 400 col.1/scoreboard {'dates': '20260518-20260716', 'limit': 1000}
+  HTTP 400 col.1/scoreboard {'dates': '20260518-20260716', 'limit': 1000}
+[colombia-categoria-primera-a] ATLANDI: ESPN'de bulunamadi (col.1)
+  HTTP 400 ltu.1/scoreboard {'dates': '20260518-20260716', 'limit': 1000}
+  HTTP 400 ltu.1/scoreboard {'dates': '20260518-20260716', 'limit': 1000}
+[lithuania-a-lyga] ATLANDI: ESPN'de bulunamadi (ltu.1)
+  HTTP 400 cmr.1/scoreboard {'dates': '20260518-20260716', 'limit': 1000}
+  HTTP 400 cmr.1/scoreboard {'dates': '20260518-20260716', 'limit': 1000}
+[cameroon-elite-one] ATLANDI: ESPN'de bulunamadi (cmr.1)
+  HTTP 400 isl.1/scoreboard {'dates': '20260518-20260716', 'limit': 1000}
+  HTTP 400 isl.1/scoreboard {'dates': '20260518-20260716', 'limit': 1000}
+[iceland-urvalsdeild] ATLANDI: ESPN'de bulunamadi (isl.1)
+  HTTP 400 isl.2/scoreboard {'dates': '20260518-20260716', 'limit': 1000}
+  HTTP 400 isl.2/scoreboard {'dates': '20260518-20260716', 'limit': 1000}
+[iceland-1-deild] ATLANDI: ESPN'de bulunamadi (isl.2)
+  HTTP 400 fin.2/scoreboard {'dates': '20260518-20260716', 'limit': 1000}
+  HTTP 400 fin.2/scoreboard {'dates': '20260518-20260716', 'limit': 1000}
+[finland-ykkosliiga] ATLANDI: ESPN'de bulunamadi (fin.2)
+  HTTP 400 fin.3/scoreboard {'dates': '20260518-20260716', 'limit': 1000}
+  HTTP 400 fin.3/scoreboard {'dates': '20260518-20260716', 'limit': 1000}
+[finland-ykkonen] ATLANDI: ESPN'de bulunamadi (fin.3)
+  HTTP 400 nor.2/scoreboard {'dates': '20260518-20260716', 'limit': 1000}
+  HTTP 400 nor.2/scoreboard {'dates': '20260518-20260716', 'limit': 1000}
+[norway-first-division] ATLANDI: ESPN'de bulunamadi (nor.2)
+  HTTP 400 irl.2/scoreboard {'dates': '20260518-20260716', 'limit': 1000}
+  HTTP 400 irl.2/scoreboard {'dates': '20260518-20260716', 'limit': 1000}
+[republic-of-ireland-first-divis] ATLANDI: ESPN'de bulunamadi (irl.2)
+  HTTP 400 bul.1/scoreboard {'dates': '20260518-20260716', 'limit': 1000}
+  HTTP 400 bul.1/scoreboard {'dates': '20260518-20260716', 'limit': 1000}
+[bulgaria-first-league] ATLANDI: ESPN'de bulunamadi (bul.1)
+  HTTP 400 hun.1/scoreboard {'dates': '20260518-20260716', 'limit': 1000}
+  HTTP 400 hun.1/scoreboard {'dates': '20260518-20260716', 'limit': 1000}
+[hungary-nb-i] ATLANDI: ESPN'de bulunamadi (hun.1)
+  HTTP 400 lva.1/scoreboard {'dates': '20260518-20260716', 'limit': 1000}
+  HTTP 400 lva.1/scoreboard {'dates': '20260518-20260716', 'limit': 1000}
+  HTTP 400 lat.1/scoreboard {'dates': '20260518-20260716', 'limit': 1000}
+  HTTP 400 lat.1/scoreboard {'dates': '20260518-20260716', 'limit': 1000}
+[latvia-virsliga] ATLANDI: ESPN'de bulunamadi (lva.1, lat.1)
+  HTTP 400 ecu.1/scoreboard {'dates': '20260518-20260716', 'limit': 1000}
+  HTTP 400 ecu.1/scoreboard {'dates': '20260518-20260716', 'limit': 1000}
+[ecuador-primera-categoria-serie] ATLANDI: ESPN'de bulunamadi (ecu.1)
+  HTTP 400 can.1/scoreboard {'dates': '20260518-20260716', 'limit': 1000}
+  HTTP 400 can.1/scoreboard {'dates': '20260518-20260716', 'limit': 1000}
+[canada-canadian-premier-league] ATLANDI: ESPN'de bulunamadi (can.1)
+  HTTP 400 bra.2/scoreboard {'dates': '20260518-20260716', 'limit': 1000}
+  HTTP 400 bra.2/scoreboard {'dates': '20260518-20260716', 'limit': 1000}
+[brazil-serie-b] ATLANDI: ESPN'de bulunamadi (bra.2)
+  HTTP 400 swe.2/scoreboard {'dates': '20260518-20260716', 'limit': 1000}
+[sweden-superettan] ATLANDI: ESPN'de bulunamadi (swe.2)
