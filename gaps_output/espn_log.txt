@@ -1,16 +1,9 @@
-  HTTP 400 cze.1/scoreboard {'dates': '20260519-20261016'}
-  HTTP 400 chi.1/scoreboard {'dates': '20260519-20261016'}
-  HTTP 400 col.1/scoreboard {'dates': '20260519-20261016'}
-  HTTP 400 fin.2/scoreboard {'dates': '20260519-20261016'}
-  HATA fin.2/scoreboard: HTTPError 504 Server Error: Gateway Time-out for url: https://site.api.espn.com/apis/site/v2/sports/soccer/fin.2/scoreboard?dates=20260805
-  HATA fin.2/scoreboard: HTTPError 504 Server Error: Gateway Time-out for url: https://site.api.espn.com/apis/site/v2/sports/soccer/fin.2/scoreboard?dates=20260805
-  HATA fin.2/scoreboard: HTTPError 504 Server Error: Gateway Timeout for url: https://site.web.api.espn.com/apis/site/v2/sports/soccer/fin.2/scoreboard?dates=20260805
-  HATA fin.2/scoreboard: HTTPError 504 Server Error: Gateway Timeout for url: https://site.web.api.espn.com/apis/site/v2/sports/soccer/fin.2/scoreboard?dates=20260805
-  HTTP 400 nor.2/scoreboard {'dates': '20260519-20261016'}
-  HATA nor.2/scoreboard: HTTPError 504 Server Error: Gateway Time-out for url: https://site.api.espn.com/apis/site/v2/sports/soccer/nor.2/scoreboard?dates=20260602
-  HATA nor.2/scoreboard: HTTPError 504 Server Error: Gateway Time-out for url: https://site.api.espn.com/apis/site/v2/sports/soccer/nor.2/scoreboard?dates=20260602
-  HATA nor.2/scoreboard: HTTPError 504 Server Error: Gateway Timeout for url: https://site.web.api.espn.com/apis/site/v2/sports/soccer/nor.2/scoreboard?dates=20260602
-  HATA nor.2/scoreboard: HTTPError 504 Server Error: Gateway Timeout for url: https://site.web.api.espn.com/apis/site/v2/sports/soccer/nor.2/scoreboard?dates=20260602
-  HTTP 400 ecu.1/scoreboard {'dates': '20260519-20261016'}
-  HTTP 400 bra.2/scoreboard {'dates': '20260519-20261016'}
-  HTTP 400 swe.2/scoreboard {'dates': '20260519-20261016'}
+  HTTP 400 cze.1/scoreboard {'dates': '20260520-20261017'}
+  HTTP 400 chi.1/scoreboard {'dates': '20260520-20261017'}
+  HTTP 400 col.1/scoreboard {'dates': '20260520-20261017'}
+  HTTP 400 fin.2/scoreboard {'dates': '20260520-20261017'}
+  HTTP 400 nor.2/scoreboard {'dates': '20260520-20261017'}
+  HTTP 400 ecu.1/scoreboard {'dates': '20260520-20261017'}
+  HTTP 400 bra.2/scoreboard {'dates': '20260520-20261017'}
+  HTTP 400 swe.2/scoreboard {'dates': '20260520-20261017'}
+  HATA swe.2/scoreboard: ReadTimeout HTTPSConnectionPool(host='site.api.espn.com', port=443): Read timed out. (read timeout=20)
