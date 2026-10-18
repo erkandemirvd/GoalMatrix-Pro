@@ -1,9 +1,8 @@
-  HTTP 400 cze.1/scoreboard {'dates': '20260520-20261017'}
-  HTTP 400 chi.1/scoreboard {'dates': '20260520-20261017'}
-  HTTP 400 col.1/scoreboard {'dates': '20260520-20261017'}
-  HTTP 400 fin.2/scoreboard {'dates': '20260520-20261017'}
-  HTTP 400 nor.2/scoreboard {'dates': '20260520-20261017'}
-  HTTP 400 ecu.1/scoreboard {'dates': '20260520-20261017'}
-  HTTP 400 bra.2/scoreboard {'dates': '20260520-20261017'}
-  HTTP 400 swe.2/scoreboard {'dates': '20260520-20261017'}
-  HATA swe.2/scoreboard: ReadTimeout HTTPSConnectionPool(host='site.api.espn.com', port=443): Read timed out. (read timeout=20)
+  HTTP 400 cze.1/scoreboard {'dates': '20260521-20261018'}
+  HTTP 400 chi.1/scoreboard {'dates': '20260521-20261018'}
+  HTTP 400 col.1/scoreboard {'dates': '20260521-20261018'}
+  HTTP 400 fin.2/scoreboard {'dates': '20260521-20261018'}
+  HTTP 400 nor.2/scoreboard {'dates': '20260521-20261018'}
+  HTTP 400 ecu.1/scoreboard {'dates': '20260521-20261018'}
+  HTTP 400 bra.2/scoreboard {'dates': '20260521-20261018'}
+  HTTP 400 swe.2/scoreboard {'dates': '20260521-20261018'}
