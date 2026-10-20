@@ -1,8 +1,8 @@
-  HTTP 400 cze.1/scoreboard {'dates': '20260522-20261019'}
-  HTTP 400 chi.1/scoreboard {'dates': '20260522-20261019'}
-  HTTP 400 col.1/scoreboard {'dates': '20260522-20261019'}
-  HTTP 400 fin.2/scoreboard {'dates': '20260522-20261019'}
-  HTTP 400 nor.2/scoreboard {'dates': '20260522-20261019'}
-  HTTP 400 ecu.1/scoreboard {'dates': '20260522-20261019'}
-  HTTP 400 bra.2/scoreboard {'dates': '20260522-20261019'}
-  HTTP 400 swe.2/scoreboard {'dates': '20260522-20261019'}
+  HTTP 400 cze.1/scoreboard {'dates': '20260523-20261020'}
+  HTTP 400 chi.1/scoreboard {'dates': '20260523-20261020'}
+  HTTP 400 col.1/scoreboard {'dates': '20260523-20261020'}
+  HTTP 400 fin.2/scoreboard {'dates': '20260523-20261020'}
+  HTTP 400 nor.2/scoreboard {'dates': '20260523-20261020'}
+  HTTP 400 ecu.1/scoreboard {'dates': '20260523-20261020'}
+  HTTP 400 bra.2/scoreboard {'dates': '20260523-20261020'}
+  HTTP 400 swe.2/scoreboard {'dates': '20260523-20261020'}
