@@ -1,8 +1,9 @@
-  HTTP 400 cze.1/scoreboard {'dates': '20260615-20261112'}
-  HTTP 400 chi.1/scoreboard {'dates': '20260615-20261112'}
-  HTTP 400 col.1/scoreboard {'dates': '20260615-20261112'}
-  HTTP 400 fin.2/scoreboard {'dates': '20260615-20261112'}
-  HTTP 400 nor.2/scoreboard {'dates': '20260615-20261112'}
-  HTTP 400 ecu.1/scoreboard {'dates': '20260615-20261112'}
-  HTTP 400 bra.2/scoreboard {'dates': '20260615-20261112'}
-  HTTP 400 swe.2/scoreboard {'dates': '20260615-20261112'}
+  HTTP 400 cze.1/scoreboard {'dates': '20260616-20261113'}
+  HATA cze.1/scoreboard: SSLError HTTPSConnectionPool(host='site.api.espn.com', port=443): Max retries exceeded with url: /apis/site/v2/sports/soccer/cze.1/scoreboard?dates=20260707 (C
+  HTTP 400 chi.1/scoreboard {'dates': '20260616-20261113'}
+  HTTP 400 col.1/scoreboard {'dates': '20260616-20261113'}
+  HTTP 400 fin.2/scoreboard {'dates': '20260616-20261113'}
+  HTTP 400 nor.2/scoreboard {'dates': '20260616-20261113'}
+  HTTP 400 ecu.1/scoreboard {'dates': '20260616-20261113'}
+  HTTP 400 bra.2/scoreboard {'dates': '20260616-20261113'}
+  HTTP 400 swe.2/scoreboard {'dates': '20260616-20261113'}
